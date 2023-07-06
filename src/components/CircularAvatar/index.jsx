@@ -16,7 +16,11 @@ function CircularAvatar(props) {
                 font-bold text-lg 
                 flex items-center justify-center"
       >
-        {props.letter ?? "A"}
+        {props.img ? (
+          <img src={props.img} alt="Profile picture" />
+        ) : (
+          props.letter
+        )}
       </div>
     );
   }

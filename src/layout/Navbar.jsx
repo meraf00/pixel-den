@@ -3,7 +3,7 @@ import Button from "components/Button";
 import { NavLink } from "components/Links";
 import CircularAvatar from "components/CircularAvatar";
 import Navmenu from "components/Menu";
-import { useAuth } from "context/auth/AuthContext";
+import { useAuth } from "features/authentication";
 import logo from "assets/logo/logo.png";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ function MobileMenu(props) {
             Features
           </NavLink>
         </li>
-        {props.user !== null ? (
+        {props.user === null ? (
           <>
             <li>
               <NavLink to="/login" onClick={props.closeNavbar}>
@@ -45,7 +45,7 @@ function MobileMenu(props) {
               <hr className="opacity-20" />
             </li>
             <li>
-              <NavLink to="dashboard" onClick={props.closeNavbar}>
+              <NavLink to="/settings" onClick={props.closeNavbar}>
                 Settings
               </NavLink>
             </li>
@@ -64,8 +64,8 @@ function MobileMenu(props) {
 
 function Cover(props) {
   return (
-    <div className="absolute w-screen h-screen backdrop-blur bg-gray bg-opacity-30 z-40 top-0">
-      <MobileMenu closeNavbar={props.closeNavbar} />
+    <div className="fixed w-screen h-screen backdrop-blur bg-gray bg-opacity-30 z-40 top-0 md:hidden">
+      <MobileMenu closeNavbar={props.closeNavbar} user={props.user} />
     </div>
   );
 }
@@ -104,7 +104,7 @@ function Navbar() {
 
   return (
     <>
-      {isOpen ? <Cover closeNavbar={handleOpen} /> : null}
+      {isOpen ? <Cover closeNavbar={handleOpen} user={user} /> : null}
       <nav
         className={`
     flex px-4 md:px-10 lg:px-20 py-4 justify-between items-center sticky top-0
@@ -117,7 +117,7 @@ function Navbar() {
       >
         <div>
           <Link to="/">
-            <img src={logo} className="w-[6rem]" />
+            <img src={logo} className="w-[6rem]" alt="Logo" />
           </Link>
         </div>
 
@@ -126,23 +126,27 @@ function Navbar() {
           <Navmenu isOpen={isOpen} onClick={handleOpen} />
         </div>
 
-        <div className="hidden md:block lg:block xl:block">
+        <div className="hidden md:flex lg:flex xl:flex items-center justify-between md:gap-8 lg:gap-10">
+          <NavLink>Services</NavLink>
+          <NavLink>Features</NavLink>
           {user ? (
             <div className="flex">
               <div className="flex pr-10 items-center">
                 <Button>Share work</Button>
               </div>
-              <CircularAvatar />
+              <Link to="/settings">
+                {user.photoUrl ? (
+                  <CircularAvatar img={user.photoUrl} />
+                ) : (
+                  <CircularAvatar letter={user.displayName[0]} />
+                )}
+              </Link>
             </div>
           ) : (
-            <div className="flex justify-between md:gap-8 lg:gap-10">
-              <NavLink>Services</NavLink>
-              <NavLink>Features</NavLink>
-              <div>
-                <NavLink to="/login">Sign in</NavLink>
-                <span>|</span>
-                <NavLink to="/signup">Sign up</NavLink>
-              </div>
+            <div>
+              <NavLink to="/login">Sign in</NavLink>
+              <span>|</span>
+              <NavLink to="/signup">Sign up</NavLink>
             </div>
           )}
         </div>

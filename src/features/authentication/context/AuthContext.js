@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 import {
   createUserWithEmailAndPassword,
@@ -26,12 +26,12 @@ const signUp = async ({ firstName, lastName, email, password }) => {
   });
 };
 
-const login = (email, password) => {
-  signInWithEmailAndPassword(auth, email, password);
+const login = async (email, password) => {
+  await signInWithEmailAndPassword(auth, email, password);
 };
 
-const logOut = () => {
-  signOut(auth);
+const logOut = async () => {
+  await signOut(auth);
 };
 
 function AuthProvider({ children }) {
@@ -61,8 +61,4 @@ function AuthProvider({ children }) {
   );
 }
 
-const useAuth = () => {
-  return useContext(authContext);
-};
-
-export { AuthProvider, useAuth };
+export { AuthProvider, authContext };

@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import router from "./router";
 import "./index.css";
-import { AuthProvider } from "context/auth/AuthContext";
+import { AuthProvider } from "features/authentication";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

@@ -36,6 +36,7 @@ export default function Input(props) {
       </label>
       <input
         id={props.id}
+        ref={props.inputRef}
         className={`   
       bg-transparent      
       text-sm
