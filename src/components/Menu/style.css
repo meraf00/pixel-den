@@ -1,15 +1,21 @@
+:root {
+  --bar-height: 3px;
+  --button-height: 20px;
+  --button-width: 25px;
+}
+
 .navmenu {
   position: relative;
-  width: 30px;
-  height: 25px;
+  width: var(--button-width);
+  height: var(--button-height);
 }
 
 .navmenu div {
   padding: 0;
   margin: 0;
   position: absolute;
-  width: 30px;
-  height: 4px;
+  width: var(--button-width);
+  height: var(--bar-height);
   background-color: white;
   transition: all ease-in-out 500ms;
 }
@@ -32,7 +38,8 @@
 }
 
 .navmenu.open div:nth-child(1) {
-  transform: translateY(11px) rotateZ(45deg);
+  --move: calc(var(--bar-height) * 2 + 100%);
+  transform: translateY(var(--move)) rotateZ(45deg);
 }
 
 .navmenu.open div:nth-child(2) {
@@ -41,5 +48,6 @@
 }
 
 .navmenu.open div:nth-child(3) {
-  transform: translateY(-10px) rotateZ(-45deg);
+  --move: calc(var(--bar-height) * -2 - 100%);
+  transform: translateY(var(--move)) rotateZ(-45deg);
 }
