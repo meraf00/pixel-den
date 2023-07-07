@@ -1,0 +1,15 @@
+.slideshow-container {
+  transform-style: preserve-3d;
+}
+
+.perspective {
+  transform: perspective(9cm);
+}
+
+.slideshow-container div {
+  transform: perspective(18cm) translate3d(0, 0, 0) rotateY(-2deg);
+}
+
+.slideshow-container div:hover {
+  transform: perspective(9cm) translate3d(0, 0, 0.5cm) rotateY(0);
+}

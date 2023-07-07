@@ -1,0 +1,62 @@
+/* Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+  scrollbar-color: #00000000 #00000000;
+}
+
+/* Chrome, Edge, and Safari */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
+@media (min-width: 768px) {
+  /* Firefox */
+  .md\:hide-scrollbar {
+    scrollbar-width: none;
+    scrollbar-color: #00000000 #00000000;
+  }
+
+  /* Chrome, Edge, and Safari */
+  .md\:hide-scrollbar::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Firefox */
+  .lg\:hide-scrollbar {
+    scrollbar-width: none;
+    scrollbar-color: #00000000 #00000000;
+  }
+
+  /* Chrome, Edge, and Safari */
+  .lg\:hide-scrollbar::-webkit-scrollbar {
+    width: 0;
+    display: none;
+  }
+}
+
+.scrollstart-blur::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -15px;
+  width: 30px;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  filter: blur(1px);
+  z-index: 100;
+}
+
+.scrollend-blur::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -15px;
+  width: 30px;
+  backdrop-filter: blur(5px);
+  filter: blur(1px);
+  height: 100%;
+  z-index: 100;
+}
