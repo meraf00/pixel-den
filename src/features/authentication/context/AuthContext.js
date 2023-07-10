@@ -37,8 +37,26 @@ const logOut = async () => {
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
 
+  const _cachedUser = localStorage.getItem("currentUser");
+  let cachedUser = null;
+  if (_cachedUser) {
+    cachedUser = JSON.parse(_cachedUser);
+  }
+  const [localUser, setLocalUser] = useState(cachedUser);
+
   useEffect(() => {
+    const _localUser = localStorage.getItem("currentUser");
+
+    if (_localUser) {
+      setUser(JSON.parse(_localUser));
+      setLocalUser(JSON.parse(_localUser));
+    } else {
+      setLocalUser(null);
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
       setUser(currentUser);
     });
 
@@ -49,7 +67,7 @@ function AuthProvider({ children }) {
     <>
       <authContext.Provider
         value={{
-          user,
+          user: user ?? localUser,
           signUp,
           login,
           logOut,

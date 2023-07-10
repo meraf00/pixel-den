@@ -1,6 +1,6 @@
 function Button(props) {
   const defaultColor =
-    "bg-secondary-400 text-on-secondary-400 hover:bg-secondary-300 hover:text-on-secondary-300";
+    "bg-secondary-300 text-on-secondary-300 hover:bg-secondary-200 hover:text-on-secondary-200";
 
   return (
     <button

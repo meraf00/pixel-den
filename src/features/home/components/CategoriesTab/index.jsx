@@ -74,6 +74,14 @@ export default function CategoriesTab() {
     setActive(id);
   };
 
+  // handle scrolling
+  const scrollLeft = () => {
+    containerRef.current.scrollLeft -= 100;
+  };
+  const scrollRight = () => {
+    containerRef.current.scrollLeft += 100;
+  };
+
   const listenToScroll = (event) => {
     setScrollOffset(event.target.scrollLeft);
   };
@@ -93,16 +101,16 @@ export default function CategoriesTab() {
 
   return (
     // main container
-    <div className="w-full md:w-8/12 mx-auto flex justify-center items-center">
-      <div className="relative p-2 px-3 scrollstart-blur ">
+    <div className="w-full md:w-8/12 mx-auto flex justify-center items-center lg:gap-3">
+      <div
+        className="relative p-2 px-3 cursor-pointer hover:text-secondary-100 transition-colors duration-200"
+        onClick={scrollLeft}
+      >
         <LeftOutlined />
       </div>
-      {/* scrollable container */}
 
-      <div
-        ref={containerRef}
-        className="w-fit overflow-x-scroll flex md:hide-scrollbar"
-      >
+      {/* scrollable container */}
+      <div ref={containerRef} className="w-fit overflow-x-auto flex">
         <div className="relative flex gap-5">
           <Tab
             innerRef={firstTabRef}
@@ -173,7 +181,10 @@ export default function CategoriesTab() {
       </div>
       {/* scrollable container end */}
 
-      <div className="relative p-2 px-3 scrollend-blur ">
+      <div
+        className="relative p-2 px-3 cursor-pointer hover:text-secondary-100 transition-colors duration-200"
+        onClick={scrollRight}
+      >
         <RightOutlined />
       </div>
     </div>

@@ -1,7 +1,8 @@
 import Button from "components/Button";
 import { useAuth } from "features/authentication";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { SideBar } from "features/settings/";
 
 export default function SettingsPage() {
   const { logOut } = useAuth();
@@ -14,11 +15,13 @@ export default function SettingsPage() {
     } catch (err) {
       console.log(err);
     }
-  };
+  };  
 
   return (
     <div>
-      <Button onClick={handleLogout}>Sign out</Button>
+      <SideBar />
+      {/* <Button onClick={handleLogout}>Sign out</Button> */}
+      <Outlet />
     </div>
   );
 }

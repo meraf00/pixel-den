@@ -3,6 +3,18 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      animation: {
+        fadein: "fadeIn 500ms ease-in-out",
+        fadeout: "fadeIn 500ms ease-in-out reverse",
+      },
+
+      keyframes: (theme) => ({
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      }),
+
       colors: {
         "primary-0": "#8095a0",
         "primary-100": "#557181",

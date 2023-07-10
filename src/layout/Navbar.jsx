@@ -64,7 +64,7 @@ function MobileMenu(props) {
 
 function Cover(props) {
   return (
-    <div className="fixed w-screen h-screen backdrop-blur bg-gray bg-opacity-30 z-40 top-0 md:hidden">
+    <div className="fixed w-screen h-screen backdrop-blur bg-gray bg-opacity-30 z-40 top-0 md:hidden animate-fadein">
       <MobileMenu closeNavbar={props.closeNavbar} user={props.user} />
     </div>
   );
@@ -107,11 +107,11 @@ function Navbar() {
       {isOpen ? <Cover closeNavbar={handleOpen} user={user} /> : null}
       <nav
         className={`
-    flex px-4 md:px-10 lg:px-20 py-4 justify-between items-center sticky top-0
-    z-50 
+    flex px-4 md:px-10 lg:px-20 py-4 lg:py-3 justify-between items-center sticky top-0
+    z-40
     ${
       showNavbarShadow
-        ? "shadow-lg shadow-primary-500 backdrop-blur-xl bg-primary-400 bg-opacity-25"
+        ? "shadow-lg shadow-primary-500 backdrop-blur bg-primary-400 bg-opacity-75"
         : ""
     }`}
       >

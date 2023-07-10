@@ -1,4 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  createBrowserRouter,
+  Navigate,
+} from "react-router-dom";
 import App from "../App";
 import ErrorPage from "pages/ErrorPage";
 import LoginPage from "pages/LoginPage";
@@ -14,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <HomePage />,
       },
       {
@@ -32,6 +38,24 @@ const router = createBrowserRouter([
             <SettingsPage />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            index: true,
+            element: <Navigate to="/settings/account" />,
+          },
+          {
+            path: "/settings/account",
+            element: <SignupPage />,
+          },
+          {
+            path: "/settings/payment",
+            element: <LoginPage />,
+          },
+          {
+            path: "/settings/assets",
+            element: <HomePage />,
+          },
+        ],
       },
     ],
   },

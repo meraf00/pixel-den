@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./style.css";
 
 export function NavLink(props) {
   // text-on-primary-300
@@ -7,12 +8,23 @@ export function NavLink(props) {
       <Link
         className="px-3              
       text-gray-200
-      hover:text-secondary-300 
-        transition-colors ease-in-out duration-500"
+        transition-color ease-in-out duration-500        
+        slide-hover-parent 
+        hover:text-transparent                 
+        "
         to={props.to}
         onClick={props.onClick}
       >
-        {props.children}
+        <span
+          className="pb-1 text-secondary-200 
+        font-medium saturate-200 
+        border-b border-b-secondary-200
+        slide-hover 
+        transition-all ease-in-out duration-500"
+        >
+          {props.children}
+        </span>
+        <span>{props.children}</span>
       </Link>
     </>
   );

@@ -8,6 +8,7 @@
   position: relative;
   width: var(--button-width);
   height: var(--button-height);
+  z-index: 1000;
 }
 
 .navmenu div {

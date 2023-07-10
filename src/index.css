@@ -12,6 +12,10 @@
   --secondary: #fe8926;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   background-color: #223e4e;
@@ -34,23 +38,26 @@ h6 {
 }
 
 /* Firefox */
-body {
+* {
   scrollbar-width: thin;
   scrollbar-color: var(--secondary) var(--primary);
 }
 
 /* Chrome, Edge, and Safari */
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   background: var(--primary);
-  width: 12px;
+  width: 10px;
+  cursor: pointer;
 }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: var(--primary);
+  border-radius: 8px;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: var(--secondary);
-  border-radius: 14px;
+  border-radius: 8px;
+  cursor: pointer;
   border: 3px solid var(--primary);
 }

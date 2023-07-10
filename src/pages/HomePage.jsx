@@ -1,7 +1,9 @@
 import React from "react";
-import SlideShow from "features/home/components/SlideShow";
-import SearchBar from "features/home/components/SearchBar";
-import CategoriesTab from "features/home/components/CategoriesTab";
+import { SearchBar, CategoriesTab, SlideShow } from "features/home/";
+import { Card } from "features/work";
+import { homeImages } from "assets/home";
+import Button from "components/Button";
+import Footer from "layout/Footer";
 
 export default function HomePage() {
   return (
@@ -29,7 +31,17 @@ export default function HomePage() {
 
       <section>
         <CategoriesTab />
+        <div className="mb-10 mt-10 lg:mt-16 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-7 gap-y-14 lg:gap-y-10 lg:gap-x-20 px-11 lg:px-20">
+          <Card imgUrl={homeImages.slideShowImages[3]} title="3D Surface" />
+          <Card imgUrl={homeImages.slideShowImages[2]} title="Textures" />
+        </div>
+
+        <div className="mx-auto flex w-fit">
+          <Button>Load more</Button>
+        </div>
       </section>
+
+      <Footer />
     </>
   );
 }

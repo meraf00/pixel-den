@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import Navbar from "./layout/Navbar";
 import { Outlet } from "react-router-dom";
 
