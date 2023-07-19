@@ -1,8 +1,7 @@
-import Button from "components/Button";
 import { useAuth } from "features/authentication";
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { SideBar } from "features/settings/";
+import SideBar from "components/SideBar";
 
 export default function SettingsPage() {
   const { logOut } = useAuth();
@@ -15,7 +14,7 @@ export default function SettingsPage() {
     } catch (err) {
       console.log(err);
     }
-  };  
+  };
 
   return (
     <div>

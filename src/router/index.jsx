@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  createBrowserRouter,
-  Navigate,
-} from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from "../App";
 import ErrorPage from "pages/ErrorPage";
 import LoginPage from "pages/LoginPage";
@@ -12,6 +6,9 @@ import SignupPage from "pages/SignupPage";
 import SettingsPage from "pages/SettingsPage";
 import ProtectedRoute from "layout/ProtectedRoute";
 import HomePage from "pages/HomePage";
+import ProfilePage from "pages/ProfilePage";
+import PaymentPage from "pages/PaymentPage";
+import AssetsPage from "pages/AssetsPage";
 
 const router = createBrowserRouter([
   {
@@ -45,15 +42,15 @@ const router = createBrowserRouter([
           },
           {
             path: "/settings/account",
-            element: <SignupPage />,
+            element: <ProfilePage />,
           },
           {
             path: "/settings/payment",
-            element: <LoginPage />,
+            element: <PaymentPage />,
           },
           {
             path: "/settings/assets",
-            element: <HomePage />,
+            element: <AssetsPage />,
           },
         ],
       },
