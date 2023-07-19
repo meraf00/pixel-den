@@ -1,4 +1,4 @@
-import { MoneyCollectOutlined,  } from "@ant-design/icons";
+import { MoneyCollectOutlined } from "@ant-design/icons";
 import { useAuth } from "features/authentication";
 import { PaymentForm } from "features/payment";
 import React from "react";
@@ -20,19 +20,17 @@ const PaymentPage = () => {
       </div>
 
       <div className="flex flex-col my-10 gap-3">
-        <span className="flex items-center font-medium text-md md:text-xl">
+        <span className="flex items-center font-medium text-md md:text-lg border-b border-gray-600 py-2 mr-24">
           Deposite or Withdraw
         </span>
 
         <div className="flex gap-16">
-          <div>
-
-          </div>
+          <div></div>
         </div>
       </div>
 
       <div className="flex flex-col my-10 gap-3">
-        <span className="flex items-center font-medium text-md md:text-xl">
+        <span className="flex items-center font-medium text-md md:text-lg border-b border-gray-600 py-2 mr-24">
           Current balance
         </span>
 
@@ -49,11 +47,11 @@ const PaymentPage = () => {
       </div>
 
       <div className="flex flex-col gap-5 my-10">
-        <span className="flex items-center font-medium text-md md:text-xl">
+        <span className="flex items-center font-medium text-md md:text-lg border-b border-gray-600 py-2 mr-24">
           Payment methods
         </span>
 
-        <div className="flex gap-16 flex-wrap">
+        <div className="flex gap-16  md:gap-x-20 lg:gap-x-36 flex-wrap">
           <div className="flex items-center gap-4">
             <img
               src={PaymentProviderIcon.chapa}
