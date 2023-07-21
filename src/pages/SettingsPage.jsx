@@ -12,13 +12,13 @@ export default function SettingsPage() {
       await logOut();
       navigate("/");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
   return (
     <div>
-      <SideBar />
+      <SideBar handleLogout={handleLogout} />
       {/* <Button onClick={handleLogout}>Sign out</Button> */}
       <Outlet />
     </div>

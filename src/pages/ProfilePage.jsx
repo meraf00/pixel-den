@@ -9,7 +9,7 @@ export default function ProfilePage() {
   return (
     <div className="px-3 md:ml-96 mt-4">
       {/* Setting title */}
-      <div className="flex gap-4 items-center mb-5">
+      <div className="flex gap-4 items-center mb-10">
         <span className="flex items-center font-semibold">
           <UserOutlined />
         </span>
@@ -19,7 +19,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Profile name, username, image */}
-      <div className="flex my-10 items-center gap-8">
+      <div className="flex mb-10 items-center gap-8">
         <div className="relative">
           <CircularAvatar letter="A" />
           <div className="absolute top-0 right-0 -translate-y-2 translate-x-1 hover:scale-110">
