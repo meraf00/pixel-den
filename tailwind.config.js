@@ -5,13 +5,19 @@ module.exports = {
     extend: {
       animation: {
         fadein: "fadeIn 500ms ease-in-out",
+        "fadein-forwards": "fadeIn 500ms ease-in-out forwards",
         fadeout: "fadeIn 500ms ease-in-out reverse",
+        scalein: "scaleIn 300ms ease-in-out",
       },
 
       keyframes: (theme) => ({
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
+        },
+        scaleIn: {
+          "0%": { transform: "scale(0)" },
+          "100%": { transform: "scale(100%)" },
         },
       }),
 
