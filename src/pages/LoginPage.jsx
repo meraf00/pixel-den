@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { GoogleOutlined } from "@ant-design/icons";
 import { Anchor } from "components/Links";
 import Input from "components/Input";
-import Button from "components/Button";
+import { ButtonFilled } from "components/Button";
 import Separator from "components/Separator";
 import { useAuth } from "features/authentication";
 import { useNavigate } from "react-router-dom";
@@ -48,14 +48,14 @@ export default function LoginPage() {
           />
 
           <div className="flex flex-col gap-5">
-            <Button onClick={handleSubmit}>Sign In</Button>
+            <ButtonFilled onClick={handleSubmit}>Sign In</ButtonFilled>
 
             <Separator text="Or" />
 
-            <Button className="bg-blue-500 hover:bg-blue-700">
+            <ButtonFilled className="bg-blue-500 hover:bg-blue-700">
               <GoogleOutlined />
               <span className="px-3">Sign in with google</span>
-            </Button>
+            </ButtonFilled>
           </div>
         </form>
       </div>

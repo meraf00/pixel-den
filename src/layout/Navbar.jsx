@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Button from "components/Button";
+import { ButtonFilled } from "components/Button";
 import { NavLink } from "components/Links";
 import CircularAvatar from "components/CircularAvatar";
 import Navmenu from "components/Menu";
@@ -53,7 +53,9 @@ function MobileMenu(props) {
               className="flex flex-col px-3 w-full"
               onClick={props.closeNavbar}
             >
-              <Button>Share work</Button>
+              <Link to="/sharework">
+                <ButtonFilled>Share work</ButtonFilled>
+              </Link>
             </li>
           </>
         )}
@@ -132,7 +134,9 @@ function Navbar() {
           {user ? (
             <div className="flex">
               <div className="flex pr-10 items-center">
-                <Button>Share work</Button>
+                <Link to="/sharework">
+                  <ButtonFilled>Share work</ButtonFilled>
+                </Link>
               </div>
               <Link to="/settings">
                 {user.photoUrl ? (

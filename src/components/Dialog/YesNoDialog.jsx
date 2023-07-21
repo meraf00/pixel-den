@@ -1,4 +1,4 @@
-import Button from "components/Button";
+import { ButtonFilled } from "components/Button";
 import { Dialog } from "components/Dialog";
 
 const YesNoDialog = ({ message, onYes, onNo }) => {
@@ -8,8 +8,8 @@ const YesNoDialog = ({ message, onYes, onNo }) => {
         <span className="font-semibold text-lg">{message}</span>
 
         <div className="flex gap-3">
-          <Button onClick={onYes}>Yes</Button>
-          <Button onClick={onNo}>No</Button>
+          <ButtonFilled onClick={onYes}>Yes</ButtonFilled>
+          <ButtonFilled onClick={onNo}>No</ButtonFilled>
         </div>
       </div>
     </Dialog>

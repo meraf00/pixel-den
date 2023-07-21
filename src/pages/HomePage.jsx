@@ -2,7 +2,7 @@ import React from "react";
 import { SearchBar, CategoriesTab, SlideShow } from "features/home/";
 import { Card } from "features/work";
 import { homeImages } from "assets/home";
-import Button from "components/Button";
+import { ButtonFilled } from "components/Button";
 import Footer from "layout/Footer";
 
 export default function HomePage() {
@@ -42,7 +42,7 @@ export default function HomePage() {
         </div>
 
         <div className="mx-auto flex w-fit">
-          <Button>Load more</Button>
+          <ButtonFilled>Load more</ButtonFilled>
         </div>
       </section>
 
