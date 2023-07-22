@@ -54,12 +54,28 @@ export const ShareWorkPage = () => {
 
   // loop through rendered elements, if they are focused,
   // apply bold on selected content
-  const applyStyle = (style) => {
+  const applyInlineStyle = (style) => {
     if (focusedElementIdx == null) return;
 
     const focusedElement = contents[focusedElementIdx];
 
     const newEditorState = RichUtils.toggleInlineStyle(
+      focusedElement.editorState,
+      style
+    );
+
+    if (newEditorState) {
+      setEditorState(focusedElementIdx, newEditorState);
+      // setFocusElementIdx(null);
+    }
+  };
+
+  const applyBlockStyle = (style) => {
+    if (focusedElementIdx == null) return;
+
+    const focusedElement = contents[focusedElementIdx];
+
+    const newEditorState = RichUtils.toggleBlockType(
       focusedElement.editorState,
       style
     );
@@ -78,7 +94,6 @@ export const ShareWorkPage = () => {
           key={idx}
           editorState={content.editorState ?? editorState}
           setEditorState={(editorState) => setEditorState(idx, editorState)}
-          hasFocus={idx == focusedElementIdx}
         />
       );
     }
@@ -130,8 +145,8 @@ export const ShareWorkPage = () => {
       </div>
 
       <EditorToolbar
-        type={ContentType.image}
-        styleHandler={applyStyle}
+        inlineStyleHandler={applyInlineStyle}
+        blockStyleHandler={applyBlockStyle}
         element={contents[focusedElementIdx]}
       />
     </div>

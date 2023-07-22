@@ -54,7 +54,17 @@ export const ImageToolbar = () => {
   );
 };
 
-export const TextToolbar = ({ bold, italic, underline, styleHandler }) => {
+export const TextToolbar = ({
+  editorState,
+  inlineStyleHandler,
+  blockStyleHandler,
+}) => {
+  const fontStyle = editorState.getCurrentInlineStyle();
+
+  const currentSelection = editorState.getSelection();
+  const blockKey = currentSelection.getStartKey();
+  const currentBlock = editorState.getCurrentContent().getBlockForKey(blockKey);
+
   return (
     <div
       className="fixed top-0 right-0
@@ -77,29 +87,30 @@ export const TextToolbar = ({ bold, italic, underline, styleHandler }) => {
         <div className="grid grid-cols-3 text-lg border-4 rounded-2xl overflow-hidden">
           <button
             onMouseDown={preventDefault}
-            onClick={() => styleHandler("BOLD")}
+            onClick={() => inlineStyleHandler("BOLD")}
             className={
-              "font-bold px-3 py-2 text-center " + (bold ? "bg-primary-0" : "")
+              "font-bold px-3 py-2 text-center " +
+              (fontStyle.has("BOLD") ? "bg-primary-0" : "")
             }
           >
             B
           </button>
           <button
             onMouseDown={preventDefault}
-            onClick={() => styleHandler("ITALIC")}
+            onClick={() => inlineStyleHandler("ITALIC")}
             className={
               "italic px-3 py-2 text-center border-l-4 border-r-4 " +
-              (italic ? "bg-primary-0" : "")
+              (fontStyle.has("ITALIC") ? "bg-primary-0" : "")
             }
           >
             I
           </button>
           <button
             onMouseDown={preventDefault}
-            onClick={() => styleHandler("UNDERLINE")}
+            onClick={() => inlineStyleHandler("UNDERLINE")}
             className={
               "underline px-3 py-2 text-center " +
-              (underline ? "bg-primary-0" : "")
+              (fontStyle.has("UNDERLINE") ? "bg-primary-0" : "")
             }
           >
             U
@@ -112,27 +123,34 @@ export const TextToolbar = ({ bold, italic, underline, styleHandler }) => {
         <div className="grid grid-cols-3 border-4 rounded-2xl overflow-hidden text-sm">
           <button
             onMouseDown={preventDefault}
+            onClick={() => blockStyleHandler("unstyled")}
             className={
               "p-3 text-center text-ellipsis overflow-hidden " +
-              (bold ? "bg-primary-0" : "")
+              (currentBlock.getType() == "unstyled" ? "bg-primary-0" : "")
             }
           >
             None
           </button>
           <button
             onMouseDown={preventDefault}
+            onClick={() => blockStyleHandler("unordered-list-item")}
             className={
               "p-3 text-center border-l-4 border-r-4 text-ellipsis overflow-hidden " +
-              (italic ? "bg-primary-0" : "")
+              (currentBlock.getType() == "unordered-list-item"
+                ? "bg-primary-0"
+                : "")
             }
           >
             Unordered
           </button>
           <button
             onMouseDown={preventDefault}
+            onClick={() => blockStyleHandler("ordered-list-item")}
             className={
               "p-3 text-center text-ellipsis overflow-hidden " +
-              (underline ? "bg-primary-0" : "")
+              (currentBlock.getType() == "ordered-list-item"
+                ? "bg-primary-0"
+                : "")
             }
           >
             Ordered
@@ -143,10 +161,20 @@ export const TextToolbar = ({ bold, italic, underline, styleHandler }) => {
   );
 };
 
-export const EditorToolbar = ({ _type, styleHandler }) => {
-  const type = ContentType.text;
-  if (type == ContentType.text)
-    return <TextToolbar styleHandler={styleHandler} />;
-  if (type == ContentType.image) return <ImageToolbar />;
-  if (type == ContentType.gallery) return <GalleryToolbar />;
+export const EditorToolbar = ({
+  element,
+  inlineStyleHandler,
+  blockStyleHandler,
+}) => {
+  if (!element) return;
+  if (element.type == ContentType.text)
+    return (
+      <TextToolbar
+        inlineStyleHandler={inlineStyleHandler}
+        blockStyleHandler={blockStyleHandler}
+        editorState={element.editorState}
+      />
+    );
+  if (element.type == ContentType.image) return <ImageToolbar />;
+  if (element.type == ContentType.gallery) return <GalleryToolbar />;
 };

@@ -16,10 +16,7 @@ export default function Card(props) {
   };
 
   return (
-    <div
-      className="group relative rounded-xl shadow-lg shadow-primary-500 overflow-hidden cursor-pointer"
-      onClick={() => console.log("helo")}
-    >
+    <div className="group relative rounded-xl shadow-lg shadow-primary-500 overflow-hidden cursor-pointer">
       {/* image */}
       <Image src={props.imgUrl} alt="Card background" className="h-full w-full">
         <ImagePlaceholder />
