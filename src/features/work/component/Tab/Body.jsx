@@ -1,6 +1,5 @@
-import React from "react";
-import FadeIn from "react-fade-in";
-
-const Body = ({ children }) => <FadeIn>{children}</FadeIn>;
+const Body = ({ children }) => {
+  return children;
+};
 
 export default Body;

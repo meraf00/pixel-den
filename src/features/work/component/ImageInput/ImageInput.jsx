@@ -1,7 +1,7 @@
 import { FileImageOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
-export const ImageInput = ({ title, description, icon, _setImage }) => {
+export const ImageInput = ({ title, description, icon, onInputChange }) => {
   const [image, setImage] = useState(null);
 
   if (!icon) icon = <FileImageOutlined />;
@@ -10,7 +10,8 @@ export const ImageInput = ({ title, description, icon, _setImage }) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
-    setImage(image);
+
+    onInputChange && onInputChange(image);
   };
 
   return (
