@@ -1,4 +1,5 @@
 const ContentType = {
+  heading: "heading",
   text: "text",
   image: "image",
   gallery: "gallery",
