@@ -63,7 +63,7 @@ export default function SignupPage() {
           <div className="flex flex-col gap-5">
             <ButtonFilled onClick={handleSubmit}>Sign up</ButtonFilled>
 
-            <Separator text="Or" />
+            <Separator>Or</Separator>
 
             <ButtonFilled className="bg-blue-500 hover:bg-blue-700">
               <GoogleOutlined />

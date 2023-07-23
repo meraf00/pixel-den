@@ -3,7 +3,6 @@ import { SearchBar, CategoriesTab, SlideShow } from "features/home/";
 import { Card } from "features/work";
 import { homeImages } from "assets/home";
 import { ButtonFilled } from "components/Button";
-import Footer from "layout/Footer";
 
 export default function HomePage() {
   return (
@@ -45,8 +44,6 @@ export default function HomePage() {
           <ButtonFilled>Load more</ButtonFilled>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 }
