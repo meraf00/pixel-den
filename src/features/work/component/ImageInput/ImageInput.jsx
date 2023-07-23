@@ -28,7 +28,7 @@ export const ImageInput = ({ title, description, icon, onInputChange }) => {
             <span className="text-5xl mb-10  cursor-pointer">{icon}</span>
 
             <span className="mb-2  cursor-pointer">{title}</span>
-            <span className="font-extralight  cursor-pointer">
+            <span className="font-extralight px-4 text-center cursor-pointer">
               {description}
             </span>
           </div>
