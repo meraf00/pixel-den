@@ -10,6 +10,8 @@
 :root {
   --primary: #223e4e;
   --secondary: #fe8926;
+
+  --scrollbar-thickness: 10px;
 }
 
 html {
@@ -26,7 +28,8 @@ body {
   min-height: 100vh;
   color: white;
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  overflow: overlay;
 }
 
 h1,
@@ -39,26 +42,127 @@ h6 {
 }
 
 /* Firefox */
-* {
+.scrollbar-dark {
   scrollbar-width: thin;
   scrollbar-color: var(--secondary) var(--primary);
 }
 
 /* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
+.scrollbar-dark::-webkit-scrollbar {
   background: var(--primary);
-  width: 10px;
+  width: var(--scrollbar-thickness);
+  height: var(--scrollbar-thickness);
   cursor: pointer;
 }
 
-*::-webkit-scrollbar-track {
+.scrollbar-dark::-webkit-scrollbar-track {
   background: var(--primary);
+  background-color: transparent;
   border-radius: 8px;
 }
 
-*::-webkit-scrollbar-thumb {
+.scrollbar-dark::-webkit-scrollbar-thumb {
   background-color: var(--secondary);
   border-radius: 8px;
   cursor: pointer;
   border: 3px solid var(--primary);
+}
+
+.scrollbar-dark::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+
+/* ------------------ Light theme -------------------- */
+.scrollbar-light {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) white;
+}
+
+/* Chrome, Edge, and Safari */
+.scrollbar-light::-webkit-scrollbar {
+  background: white;
+  width: var(--scrollbar-thickness);
+  height: var(--scrollbar-thickness);
+  cursor: pointer;
+}
+
+.scrollbar-light::-webkit-scrollbar-track {
+  background: white;
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+.scrollbar-light::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  border: 3px solid white;
+}
+
+.scrollbar-dark::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+
+@media screen and (min-width: 768px) {
+  /* Firefox */
+  .md\:.scrollbar-dark {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) var(--primary);
+  }
+
+  /* Chrome, Edge, and Safari */
+  .md\:.scrollbar-dark::-webkit-scrollbar {
+    background: var(--primary);
+    width: var(--scrollbar-thickness);
+    height: var(--scrollbar-thickness);
+    cursor: pointer;
+  }
+
+  .md\:.scrollbar-dark::-webkit-scrollbar-track {
+    background: var(--primary);
+    background-color: transparent;
+    border-radius: 8px;
+  }
+
+  .md\:.scrollbar-dark::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    border: 3px solid var(--primary);
+  }
+
+  .md\:.scrollbar-dark::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  /* ------------------ Light theme -------------------- */
+  .md\:.scrollbar-light {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) white;
+  }
+
+  /* Chrome, Edge, and Safari */
+  .md\:.scrollbar-light::-webkit-scrollbar {
+    background: white;
+    width: var(--scrollbar-thickness);
+    height: var(--scrollbar-thickness);
+    cursor: pointer;
+  }
+
+  .md\:.scrollbar-light::-webkit-scrollbar-track {
+    background: white;
+    background-color: transparent;
+    border-radius: 8px;
+  }
+
+  .md\:.scrollbar-light::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    border: 3px solid white;
+  }
+
+  .md\:.scrollbar-dark::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0);
+  }
 }

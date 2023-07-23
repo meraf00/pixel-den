@@ -110,7 +110,10 @@ export default function CategoriesTab() {
       </div>
 
       {/* scrollable container */}
-      <div ref={containerRef} className="w-fit overflow-x-auto flex">
+      <div
+        ref={containerRef}
+        className="w-fit overflow-x-auto flex scrollbar-dark"
+      >
         <div className="relative flex gap-5">
           <Tab
             innerRef={firstTabRef}
