@@ -19,9 +19,14 @@ import {
   EditorToolbar,
 } from "features/editor";
 
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Separator from "components/Separator";
+
 export const ShareWorkPage = () => {
   const [contents, setContents] = useState([new Content(ContentType.text)]);
   const [focusedElementIdx, setFocusElementIdx] = useState(null);
+  const [showInsertToolbar, setShowInsertToolbar] = useState(false);
 
   useEffect(() => {
     for (let idx in contents) {
@@ -96,11 +101,81 @@ export const ShareWorkPage = () => {
           setEditorState={(editorState) => setEditorState(idx, editorState)}
         />
       );
+    } else if (content.type == ContentType.heading) {
+      return (
+        <input
+          key={idx}
+          className="w-full    
+                    bg-transparent
+                    text-3xl
+                    font-bold
+                    outline-none
+                    outline"
+          placeholder="Add title"
+        />
+      );
+    } else if (content.type == ContentType.image) {
+      return (
+        <div
+          key={idx}
+          className="          
+          max-w-full               
+          w-[480px] h-[270px] 
+          sm:w-[640px] sm:h-[360px] 
+          md:w-[800px] md:h-[450px]
+          //lg:w-[960px] //lg:h-[540px]
+          mx-auto          
+          "
+        >
+          <ImageInput
+            title="Add an image"
+            description="Minimum 1600px width recommended. Max file size 10MB"
+          />
+        </div>
+      );
     }
   });
 
+  const createTextBlock = () => {
+    setContents((prevContents) => {
+      const newContents = [...prevContents, new Content(ContentType.text)];
+      return newContents;
+    });
+  };
+
+  const createHeadingBlock = () => {
+    setContents((prevContents) => {
+      const newContents = [...prevContents, new Content(ContentType.heading)];
+      return newContents;
+    });
+  };
+
+  const createImageBlock = () => {
+    setContents((prevContents) => {
+      const newContents = [...prevContents, new Content(ContentType.image)];
+      return newContents;
+    });
+  };
+
+  const handleInsertBlock = () => {
+    setFocusElementIdx(null);
+    setShowInsertToolbar(true);
+  };
+
+  const createBlock = (blockType) => {
+    if (blockType == ContentType.text) {
+      createTextBlock();
+    } else if (blockType == ContentType.heading) {
+      createHeadingBlock();
+    } else if (blockType == ContentType.image) {
+      createImageBlock();
+    }
+
+    setShowInsertToolbar(false);
+  };
+
   return (
-    <div className="relative px-4 md:px-10 lg:px-20 my-5 flex flex-col">
+    <div className="relative px-4 md:px-10 lg:px-20 my-5 flex flex-col gap-10">
       <div className="w-full lg:w-8/12">
         <div className="mt-5 flex flex-col gap-5">
           <input
@@ -116,12 +191,13 @@ export const ShareWorkPage = () => {
           />
 
           <div
-            className="                               
+            className="          
+          max-w-full               
           w-[480px] h-[270px] 
           sm:w-[640px] sm:h-[360px] 
           md:w-[800px] md:h-[450px]
           //lg:w-[960px] //lg:h-[540px]
-          mx-auto
+          mx-auto          
           "
           >
             <ImageInput
@@ -130,16 +206,32 @@ export const ShareWorkPage = () => {
             />
           </div>
 
-          {renderElements}
+          <div>{renderElements}</div>
+
+          <div className="cursor-pointer" onClick={handleInsertBlock}>
+            <Separator animateOnHover={true}>
+              <button className="flex group-hover:gap-2 items-center justify-center bg-gray-500 group-hover:bg-white rounded-xl px-2 py-1">
+                <FontAwesomeIcon icon={faPlus} />
+                <span
+                  className="w-0 group-hover:w-[6rem]
+            whitespace-nowrap overflow-hidden 
+            text-black
+            transition-all duration-300"
+                >
+                  Insert block
+                </span>
+              </button>
+            </Separator>
+          </div>
         </div>
       </div>
 
-      <div className="w-full flex justify-between top-0 left-0">
-        <div>
+      <div className="w-full flex flex-col-reverse sm:flex-row justify-between mb-24 flex-wrap-reverse md:flex-nowrap gap-3">
+        <div className="flex flex-col-reverse gap-3 sm:flex-row">
           <ButtonOutlined>Cancel</ButtonOutlined>
-        </div>
-        <div className="flex gap-5">
           <ButtonOutlined>Save as draft</ButtonOutlined>
+        </div>
+        <div className="flex">
           <ButtonFilled>Continue</ButtonFilled>
         </div>
       </div>
@@ -148,6 +240,8 @@ export const ShareWorkPage = () => {
         inlineStyleHandler={applyInlineStyle}
         blockStyleHandler={applyBlockStyle}
         element={contents[focusedElementIdx]}
+        showInsertToolbar={showInsertToolbar}
+        createBlockHandler={createBlock}
       />
     </div>
   );
