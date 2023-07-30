@@ -20,7 +20,7 @@ const Tabs = ({ children }) => {
 
   const childrenComponents = Children.toArray(children);
 
-  const tabs = childrenComponents.filter((child) => child.type.name == "Tab");
+  const tabs = childrenComponents.filter((child) => child.type.name === "Tab");
 
   const titles = [];
   const bodies = [];
@@ -31,17 +31,17 @@ const Tabs = ({ children }) => {
     const tabChildren = Children.toArray(tab.props.children);
 
     for (let child of tabChildren) {
-      if (child.type.name == "Title") {
+      if (child.type.name === "Title") {
         titles.push(
           <TitleWrapper
             key={`title-${tabIdx}`}
-            active={activeIdx == tabIdx}
+            active={activeIdx === tabIdx}
             onClick={() => handleTabChange(tabIdx)}
           >
             {child}
           </TitleWrapper>
         );
-      } else if (child.type.name == "Body") {
+      } else if (child.type.name === "Body") {
         bodies.push(<div key={`body-${tabIdx}`}>{child}</div>);
       }
     }

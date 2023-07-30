@@ -3,13 +3,7 @@ import { ButtonFilled, ButtonOutlined } from "components/Button";
 import { useEffect, useState } from "react";
 import { ImageInput } from "features/work/component/ImageInput";
 
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  convertToRaw,
-  convertFromRaw,
-} from "draft-js";
+import { RichUtils } from "draft-js";
 
 import {
   Textarea,
@@ -31,7 +25,7 @@ export const ShareWorkPage = () => {
   useEffect(() => {
     for (let idx in contents) {
       const content = contents[idx];
-      if (content.type == ContentType.text) {
+      if (content.type === ContentType.text) {
         if (content.editorState?.getSelection().getHasFocus()) {
           setFocusElementIdx(idx);
           return;
@@ -43,7 +37,7 @@ export const ShareWorkPage = () => {
   const setEditorState = (contentId, state) => {
     setContents((prevContents) => {
       const newContents = prevContents.map((content, idx) => {
-        if (idx == contentId) {
+        if (idx === contentId) {
           const newContent = content.copy();
           newContent.editorState = state;
 
@@ -60,7 +54,7 @@ export const ShareWorkPage = () => {
   // loop through rendered elements, if they are focused,
   // apply bold on selected content
   const applyInlineStyle = (style) => {
-    if (focusedElementIdx == null) return;
+    if (focusedElementIdx === null) return;
 
     const focusedElement = contents[focusedElementIdx];
 
@@ -76,7 +70,7 @@ export const ShareWorkPage = () => {
   };
 
   const applyBlockStyle = (style) => {
-    if (focusedElementIdx == null) return;
+    if (focusedElementIdx === null) return;
 
     const focusedElement = contents[focusedElementIdx];
 
@@ -92,7 +86,7 @@ export const ShareWorkPage = () => {
   };
 
   const renderElements = contents.map((content, idx) => {
-    if (content.type == ContentType.text) {
+    if (content.type === ContentType.text) {
       const editorState = createEditorState();
       return (
         <Textarea
@@ -101,7 +95,7 @@ export const ShareWorkPage = () => {
           setEditorState={(editorState) => setEditorState(idx, editorState)}
         />
       );
-    } else if (content.type == ContentType.heading) {
+    } else if (content.type === ContentType.heading) {
       return (
         <input
           key={idx}
@@ -114,7 +108,7 @@ export const ShareWorkPage = () => {
           placeholder="Add title"
         />
       );
-    } else if (content.type == ContentType.image) {
+    } else if (content.type === ContentType.image) {
       return (
         <div
           key={idx}
@@ -133,6 +127,8 @@ export const ShareWorkPage = () => {
           />
         </div>
       );
+    } else {
+      return null;
     }
   });
 
@@ -163,11 +159,11 @@ export const ShareWorkPage = () => {
   };
 
   const createBlock = (blockType) => {
-    if (blockType == ContentType.text) {
+    if (blockType === ContentType.text) {
       createTextBlock();
-    } else if (blockType == ContentType.heading) {
+    } else if (blockType === ContentType.heading) {
       createHeadingBlock();
-    } else if (blockType == ContentType.image) {
+    } else if (blockType === ContentType.image) {
       createImageBlock();
     }
 
