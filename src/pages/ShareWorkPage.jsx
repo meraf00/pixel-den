@@ -113,12 +113,52 @@ export const ShareWorkPage = () => {
     }
   };
 
+  const handleDelete = (contentIdx) => {
+    setContents((prevContents) => {
+      const newContents = prevContents.filter((_, idx) => idx !== contentIdx);
+
+      return newContents;
+    });
+  };
+
+  const handleShiftUp = (contentIdx) => {
+    setContents((prevContents) => {
+      const newContents = [...prevContents];
+      const element = newContents[contentIdx];
+
+      if (contentIdx > 0) {
+        newContents[contentIdx] = newContents[contentIdx - 1];
+        newContents[contentIdx - 1] = element;
+      }
+
+      return newContents;
+    });
+  };
+
+  const handleShiftDown = (contentIdx) => {
+    setContents((prevContents) => {
+      const newContents = [...prevContents];
+      const element = newContents[contentIdx];
+
+      if (contentIdx < newContents.length - 1) {
+        newContents[contentIdx] = newContents[contentIdx + 1];
+        newContents[contentIdx + 1] = element;
+      }
+
+      return newContents;
+    });
+  };
+
   const renderElements = contents.map((content, idx) => {
     switch (content.type) {
       case ContentType.text:
         const editorState = createEditorState();
         return (
-          <ContentContainer>
+          <ContentContainer
+            handleDelete={() => handleDelete(idx)}
+            handleShiftUp={() => handleShiftUp(idx)}
+            handleShiftDown={() => handleShiftDown(idx)}
+          >
             <Textarea
               key={idx}
               editorState={content.state.editorState ?? editorState}
@@ -129,7 +169,11 @@ export const ShareWorkPage = () => {
 
       case ContentType.heading:
         return (
-          <ContentContainer>
+          <ContentContainer
+            handleDelete={() => handleDelete(idx)}
+            handleShiftUp={() => handleShiftUp(idx)}
+            handleShiftDown={() => handleShiftDown(idx)}
+          >
             <input
               key={idx}
               ref={(el) => {
@@ -150,7 +194,11 @@ export const ShareWorkPage = () => {
 
       case ContentType.image:
         return (
-          <ContentContainer>
+          <ContentContainer
+            handleDelete={() => handleDelete(idx)}
+            handleShiftUp={() => handleShiftUp(idx)}
+            handleShiftDown={() => handleShiftDown(idx)}
+          >
             <div
               onClick={() => setFocusElementIdx(idx)}
               key={idx}
@@ -218,7 +266,7 @@ export const ShareWorkPage = () => {
 
   return (
     <div className="relative px-4 md:px-10 lg:px-20 my-5 flex flex-col gap-10">
-      <div className="w-full lg:w-8/12">
+      <div className="w-full lg:w-8/12 min-h-[50vh]">
         <div className="mt-5 flex flex-col gap-5">
           <input
             className="w-full
