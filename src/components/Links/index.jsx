@@ -10,14 +10,14 @@ export function NavLink(props) {
       text-gray-200
         transition-color ease-in-out duration-500        
         slide-hover-parent 
-        hover:text-transparent                 
+        hover:text-transparent                         
         "
         to={props.to}
         onClick={props.onClick}
       >
         <span
           className="pb-1 text-secondary-200 
-        font-medium saturate-200 
+        saturate-200 
         border-b border-b-secondary-200
         slide-hover 
         transition-all ease-in-out duration-500"

@@ -2,7 +2,7 @@ function CircularAvatar(props) {
   if (props.src)
     return (
       <img
-        className="w-10 h-10 rounded-ful"
+        className="w-9 h-9 rounded-ful"
         src={props.src}
         alt={props.alt ?? "Avatar"}
       />
@@ -10,7 +10,7 @@ function CircularAvatar(props) {
   else {
     return (
       <div
-        className="w-10 h-10 rounded-full
+        className="w-9 h-9 rounded-full
                 bg-secondary-300 text-on-secondary-500                              
                 font-bold text-lg 
                 flex items-center justify-center

@@ -69,7 +69,7 @@ export default function SideBar(props) {
       <div
         className={`
       fixed top-0 -right-3 md:left-0 h-full 
-      pt-16 md:w-4/12 max-w-xs md:pt-7 z-10 md:z-50 ${sidebarClassName}
+      pt-16 md:w-1/5 max-w-xs md:pt-7 z-10 md:z-50 ${sidebarClassName}
       md:text-black md:bg-white
       flex flex-col justify-between 
       transition-all duration-500 delay-75
@@ -115,7 +115,7 @@ export default function SideBar(props) {
 
         {/* botttom button  */}
         <button
-          className="flex justify-center items-center gap-3 p-3 m-2 rounded bg-secondary-200 font-semibold hover:text-white md:hover:bg-secondary-300 saturate-200"
+          className="flex justify-center items-center gap-3 p-2 m-2 rounded bg-secondary-200 font-semibold hover:text-white md:hover:bg-secondary-300 saturate-200"
           onClick={() => setShowLogout(!showLogout)}
         >
           <span className="flex items-center ">
