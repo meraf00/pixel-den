@@ -35,7 +35,7 @@ const Tabs = ({ children }) => {
         titles.push(
           <TitleWrapper
             key={`title-${tabIdx}`}
-            active={activeIdx === tabIdx}
+            active={activeIdx == tabIdx}
             onClick={() => handleTabChange(tabIdx)}
           >
             {child}
@@ -49,7 +49,7 @@ const Tabs = ({ children }) => {
 
   return (
     <div>
-      <div className="flex mr-10 lg:mr-20 gap-10 font-semibold border-b border-primary-200 mb-5">
+      <div className="flex mr-10 lg:mr-20 gap-10 font- border-b border-primary-200 mb-5">
         {titles}
       </div>
       {bodies[activeIdx]}

@@ -24,7 +24,9 @@ export default function Card(props) {
 
       {/* hover descirption */}
       <div className="absolute flex items-center justify-between -bottom-20 group-hover:bottom-0 px-5 py-2 w-full backdrop-blur bg-primary-500 bg-opacity-30 transition-all duration-500">
-        <span>{props.title}</span>
+        <span className="whitespace-nowrap text-ellipsis max-w-[6rem] overflow-hidden text-sm">
+          {props.title}
+        </span>
 
         <div className="flex gap-3 items-center text-lg">
           <span
