@@ -13,8 +13,8 @@ class Content {
   }
 
   copy() {
-    const stateCopy = Object.assign({}, this.state);
-    return new Content(this.type, stateCopy);
+    const deepCopy = JSON.parse(JSON.stringify(this.state));
+    return new Content(this.type, deepCopy);
   }
 }
 

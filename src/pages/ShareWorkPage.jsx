@@ -4,7 +4,6 @@ import { ImageInput } from "features/work/component/ImageInput";
 import { RichUtils } from "draft-js";
 import {
   Textarea,
-  createEditorState,
   Content,
   ContentType,
   EditorToolbar,
@@ -152,16 +151,15 @@ export const ShareWorkPage = () => {
   const renderElements = contents.map((content, idx) => {
     switch (content.type) {
       case ContentType.text:
-        const editorState = createEditorState();
         return (
           <ContentContainer
+            key={idx}
             handleDelete={() => handleDelete(idx)}
             handleShiftUp={() => handleShiftUp(idx)}
             handleShiftDown={() => handleShiftDown(idx)}
           >
             <Textarea
-              key={idx}
-              editorState={content.state.editorState ?? editorState}
+              editorState={content.state.editorState}
               setEditorState={(editorState) => setEditorState(idx, editorState)}
             />
           </ContentContainer>
@@ -170,18 +168,16 @@ export const ShareWorkPage = () => {
       case ContentType.heading:
         return (
           <ContentContainer
+            key={idx}
             handleDelete={() => handleDelete(idx)}
             handleShiftUp={() => handleShiftUp(idx)}
             handleShiftDown={() => handleShiftDown(idx)}
           >
             <input
-              key={idx}
-              ref={(el) => {
-                inputRefs.current[idx] = el;
-              }}
+              ref={(el) => (inputRefs.current[idx] = el)}
               className="w-full   
-                    px-3 
-                    my-8
+                    px-3  
+                    my-3                  
                     bg-transparent
                     text-3xl
                     font-bold
@@ -195,20 +191,22 @@ export const ShareWorkPage = () => {
       case ContentType.image:
         return (
           <ContentContainer
+            key={idx}
             handleDelete={() => handleDelete(idx)}
             handleShiftUp={() => handleShiftUp(idx)}
             handleShiftDown={() => handleShiftDown(idx)}
           >
             <div
               onClick={() => setFocusElementIdx(idx)}
-              key={idx}
               className="          
           max-w-full
           w-[480px] h-[270px] 
           sm:w-[640px] sm:h-[360px] 
           md:w-[800px] md:h-[450px]          
-          lg:w-[960px] lg:h-[540px]                 
-          mx-auto
+          lg:w-[960px] lg:h-[506px]                 
+          mx-auto 
+          px-3  
+          my-3       
           "
             >
               <ImageInput
@@ -217,7 +215,7 @@ export const ShareWorkPage = () => {
                 title="Add an image"
                 description="Minimum 1600px width recommended. Max file size 10MB"
                 onInputChange={(image) => setContentImage(idx, image)}
-                currentImage={content.state.image}
+                image={content.state.image}
               />
             </div>
           </ContentContainer>
@@ -264,13 +262,14 @@ export const ShareWorkPage = () => {
     setShowInsertToolbar(false);
   };
 
+  console.log(contents);
+
   return (
     <div className="relative px-4 md:px-10 lg:px-20 my-5 flex flex-col gap-10">
       <div className="w-full lg:w-8/12 min-h-[50vh]">
         <div className="mt-5 flex flex-col gap-5">
           <input
-            className="w-full
-          py-6
+            className="w-full          
           px-3
           bg-transparent
           text-3xl
@@ -282,7 +281,7 @@ export const ShareWorkPage = () => {
 
           <div>{renderElements}</div>
 
-          <div className="cursor-pointer" onClick={handleInsertBlock}>
+          <div className="cursor-pointer px-2 py-5" onClick={handleInsertBlock}>
             <Separator animateOnHover={true}>
               <button className="flex group-hover:gap-2 items-center justify-center bg-gray-500 group-hover:bg-white rounded-xl px-2 py-1">
                 <FontAwesomeIcon icon={faPlus} />

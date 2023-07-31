@@ -6,20 +6,18 @@ export const ImageInput = ({
   description,
   icon,
   onInputChange,
-  currentImage,
+  image,
   inputRefs,
   index,
 }) => {
-  const [image, setImage] = useState(currentImage);
-
   if (!icon) icon = <FileImageOutlined />;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
+      // setImage(URL.createObjectURL(event.target.files[0]));
+      onInputChange &&
+        onInputChange(URL.createObjectURL(event.target.files[0]));
     }
-
-    onInputChange && onInputChange(URL.createObjectURL(event.target.files[0]));
   };
 
   return (
@@ -47,15 +45,13 @@ export const ImageInput = ({
           </span>
         </div>
         <input
-          ref={(el) => {
-            inputRefs.current[index] = el;
-            console.log(el);
-          }}
+          ref={(el) => (inputRefs.current[index] = el)}
           className={
-            `
+            ` 
+    block 
     before:absolute
     before:border-4 before:border-gray-600 before:border-dashed 
-    before:w-full before:h-full 
+    before:w-full before:h-full
     before:rounded-lg before:text-center
     overflow-hidden w-0 h-0 before:cursor-pointer ` + (image ? "hidden" : "")
           }

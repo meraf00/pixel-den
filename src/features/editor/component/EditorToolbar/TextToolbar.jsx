@@ -2,12 +2,15 @@ import { FontSizeOutlined } from "@ant-design/icons";
 
 import { ToolbarContainer } from "../Container/ToolbarContainer";
 import { preventDefault } from "utils";
+import { createEditorState } from "../Editor";
 
 export const TextToolbar = ({
   editorState,
   inlineStyleHandler,
   blockStyleHandler,
 }) => {
+  if (!editorState) editorState = createEditorState();
+
   const fontStyle = editorState.getCurrentInlineStyle();
 
   const currentSelection = editorState.getSelection();

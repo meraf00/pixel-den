@@ -9,7 +9,7 @@ export const createEditorState = (editorContent) => {
   return EditorState.createEmpty();
 };
 
-export const Textarea = ({ editorState, setEditorState, hasFocus }) => {
+export const Textarea = ({ editorState, setEditorState }) => {
   const handleKeyCommand = (command, editorState) => {
     const newEditorState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -20,12 +20,14 @@ export const Textarea = ({ editorState, setEditorState, hasFocus }) => {
     return "not-handled";
   };
 
+  if (!editorState) editorState = createEditorState();
+
   return (
     <div
       className={
         `w-full
           p-3
-          my-8
+          my-2
           text-white
           bg-transparent
           outline-none
