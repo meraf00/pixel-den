@@ -41,6 +41,14 @@ h6 {
   font-family: "Kaushan Script", cursive;
 }
 
+.scrollbar-hidden {
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
 /* Firefox */
 .scrollbar-dark {
   scrollbar-width: thin;
@@ -105,6 +113,15 @@ h6 {
 
 @media screen and (min-width: 768px) {
   /* Firefox */
+  .md\:.scrollbar-hidden {
+    scrollbar-width: none;
+  }
+
+  /* Chrome, Edge, and Safari */
+  .md\:.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
   .md\:.scrollbar-dark {
     scrollbar-width: thin;
     scrollbar-color: var(--secondary) var(--primary);
