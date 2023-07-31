@@ -1,32 +1,33 @@
 import { ButtonFilled, ButtonOutlined } from "components/Button";
-
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ImageInput } from "features/work/component/ImageInput";
-
 import { RichUtils } from "draft-js";
-
 import {
   Textarea,
   createEditorState,
   Content,
   ContentType,
   EditorToolbar,
+  ContentContainer,
 } from "features/editor";
-
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Separator from "components/Separator";
 
 export const ShareWorkPage = () => {
-  const [contents, setContents] = useState([new Content(ContentType.text)]);
+  const [contents, setContents] = useState([
+    new Content(ContentType.image),
+    new Content(ContentType.text),
+  ]);
   const [focusedElementIdx, setFocusElementIdx] = useState(null);
   const [showInsertToolbar, setShowInsertToolbar] = useState(false);
+  const inputRefs = useRef([]);
 
   useEffect(() => {
     for (let idx in contents) {
       const content = contents[idx];
-      if (content.type === ContentType.text) {
-        if (content.editorState?.getSelection().getHasFocus()) {
+      if (content.type == ContentType.text) {
+        if (content.state.editorState?.getSelection().getHasFocus()) {
           setFocusElementIdx(idx);
           return;
         }
@@ -34,12 +35,29 @@ export const ShareWorkPage = () => {
     }
   }, [contents]);
 
-  const setEditorState = (contentId, state) => {
+  const setEditorState = (contentId, editorState) => {
     setContents((prevContents) => {
       const newContents = prevContents.map((content, idx) => {
-        if (idx === contentId) {
+        if (idx == contentId) {
           const newContent = content.copy();
-          newContent.editorState = state;
+          newContent.state = { editorState };
+
+          return newContent;
+        }
+
+        return content;
+      });
+
+      return newContents;
+    });
+  };
+
+  const setContentImage = (contentId, image) => {
+    setContents((prevContents) => {
+      const newContents = prevContents.map((content, idx) => {
+        if (idx == contentId) {
+          const newContent = content.copy();
+          newContent.state = { image };
 
           return newContent;
         }
@@ -52,14 +70,14 @@ export const ShareWorkPage = () => {
   };
 
   // loop through rendered elements, if they are focused,
-  // apply bold on selected content
+  // apply style on selected content
   const applyInlineStyle = (style) => {
     if (focusedElementIdx === null) return;
 
     const focusedElement = contents[focusedElementIdx];
 
     const newEditorState = RichUtils.toggleInlineStyle(
-      focusedElement.editorState,
+      focusedElement.state.editorState,
       style
     );
 
@@ -75,7 +93,7 @@ export const ShareWorkPage = () => {
     const focusedElement = contents[focusedElementIdx];
 
     const newEditorState = RichUtils.toggleBlockType(
-      focusedElement.editorState,
+      focusedElement.state.editorState,
       style
     );
 
@@ -85,51 +103,79 @@ export const ShareWorkPage = () => {
     }
   };
 
+  const triggerImageInput = () => {
+    if (focusedElementIdx === null) return;
+
+    const focusedElement = contents[focusedElementIdx];
+
+    if (focusedElement.type === ContentType.image) {
+      inputRefs.current[focusedElementIdx]?.click();
+    }
+  };
+
   const renderElements = contents.map((content, idx) => {
-    if (content.type === ContentType.text) {
-      const editorState = createEditorState();
-      return (
-        <Textarea
-          key={idx}
-          editorState={content.editorState ?? editorState}
-          setEditorState={(editorState) => setEditorState(idx, editorState)}
-        />
-      );
-    } else if (content.type === ContentType.heading) {
-      return (
-        <input
-          key={idx}
-          className="w-full    
+    switch (content.type) {
+      case ContentType.text:
+        const editorState = createEditorState();
+        return (
+          <ContentContainer>
+            <Textarea
+              key={idx}
+              editorState={content.state.editorState ?? editorState}
+              setEditorState={(editorState) => setEditorState(idx, editorState)}
+            />
+          </ContentContainer>
+        );
+
+      case ContentType.heading:
+        return (
+          <ContentContainer>
+            <input
+              key={idx}
+              ref={(el) => {
+                inputRefs.current[idx] = el;
+              }}
+              className="w-full   
+                    px-3 
+                    my-8
                     bg-transparent
                     text-3xl
                     font-bold
                     outline-none
                     outline"
-          placeholder="Add title"
-        />
-      );
-    } else if (content.type === ContentType.image) {
-      return (
-        <div
-          key={idx}
-          className="          
-          max-w-full               
+              placeholder="Add title"
+            />
+          </ContentContainer>
+        );
+
+      case ContentType.image:
+        return (
+          <ContentContainer>
+            <div
+              onClick={() => setFocusElementIdx(idx)}
+              key={idx}
+              className="          
+          max-w-full
           w-[480px] h-[270px] 
           sm:w-[640px] sm:h-[360px] 
-          md:w-[800px] md:h-[450px]
-          //lg:w-[960px] //lg:h-[540px]
-          mx-auto          
+          md:w-[800px] md:h-[450px]          
+          lg:w-[960px] lg:h-[540px]                 
+          mx-auto
           "
-        >
-          <ImageInput
-            title="Add an image"
-            description="Minimum 1600px width recommended. Max file size 10MB"
-          />
-        </div>
-      );
-    } else {
-      return null;
+            >
+              <ImageInput
+                index={idx}
+                inputRefs={inputRefs}
+                title="Add an image"
+                description="Minimum 1600px width recommended. Max file size 10MB"
+                onInputChange={(image) => setContentImage(idx, image)}
+                currentImage={content.state.image}
+              />
+            </div>
+          </ContentContainer>
+        );
     }
+    return null;
   });
 
   const createTextBlock = () => {
@@ -177,30 +223,14 @@ export const ShareWorkPage = () => {
           <input
             className="w-full
           py-6
+          px-3
           bg-transparent
           text-3xl
           font-bold
           outline-none
-          outline
-        "
+          outline"
             placeholder="Give your work a name"
           />
-
-          <div
-            className="          
-          max-w-full               
-          w-[480px] h-[270px] 
-          sm:w-[640px] sm:h-[360px] 
-          md:w-[800px] md:h-[450px]
-          //lg:w-[960px] //lg:h-[540px]
-          mx-auto          
-          "
-          >
-            <ImageInput
-              title="Add an image"
-              description="Minimum 1600px width recommended. Max file size 10MB"
-            />
-          </div>
 
           <div>{renderElements}</div>
 
@@ -238,6 +268,7 @@ export const ShareWorkPage = () => {
         element={contents[focusedElementIdx]}
         showInsertToolbar={showInsertToolbar}
         createBlockHandler={createBlock}
+        triggerImageInput={triggerImageInput}
       />
     </div>
   );
