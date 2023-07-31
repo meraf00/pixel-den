@@ -109,7 +109,7 @@ function Navbar() {
       {isOpen ? <Cover closeNavbar={handleOpen} user={user} /> : null}
       <nav
         className={`
-    flex px-4 md:px-10 lg:px-20 py-4 lg:py-3 justify-between items-center sticky top-0
+    flex px-4 md:px-10 lg:px-20 py-3 lg:py-2 justify-between items-center sticky top-0
     z-40
     ${
       showNavbarShadow
@@ -128,7 +128,7 @@ function Navbar() {
           <Navmenu isOpen={isOpen} onClick={handleOpen} />
         </div>
 
-        <div className="hidden md:flex lg:flex xl:flex items-center justify-between md:gap-8 lg:gap-10">
+        <div className="hidden md:flex lg:flex xl:flex items-center justify-between md:gap-8 lg:gap-10 text-[90%]">
           <NavLink>Services</NavLink>
           <NavLink>Features</NavLink>
           {user ? (
