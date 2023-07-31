@@ -11,7 +11,7 @@ const AssetPage = () => {
   const { user } = useAuth();
 
   return (
-    <div className="px-3 md:ml-96 mt-4">
+    <div className="px-3 md:ml-96 mt-4 min-h-screen">
       {/* Setting title */}
       <div className="flex gap-4 items-center mb-10">
         <span className="flex items-center font-semibold">
