@@ -1,7 +1,7 @@
 // Generate required imports
 import { ContentType } from "features/editor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Container } from "../Container";
+import { ToolbarContainer } from "../Container/ToolbarContainer";
 import { BlockOutlined, FontSizeOutlined } from "@ant-design/icons";
 import {
   faHeading,
@@ -11,7 +11,7 @@ import {
 
 export const InsertBlockToolbar = ({ createBlock }) => {
   return (
-    <Container title={"Insert block"} titleIcon={<BlockOutlined />}>
+    <ToolbarContainer title={"Insert block"} titleIcon={<BlockOutlined />}>
       <div className="flex flex-col px-7 mb-4">
         <button
           className="
@@ -54,6 +54,6 @@ export const InsertBlockToolbar = ({ createBlock }) => {
           Gallery
         </button>
       </div>
-    </Container>
+    </ToolbarContainer>
   );
 };

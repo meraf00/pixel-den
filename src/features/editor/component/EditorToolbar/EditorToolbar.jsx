@@ -1,4 +1,3 @@
-// Generate required imports
 import { ContentType } from "features/editor";
 import { ImageToolbar } from "./ImageToolbar";
 import { GalleryToolbar } from "./GalleryToolbar";
@@ -11,6 +10,7 @@ export const EditorToolbar = ({
   inlineStyleHandler,
   blockStyleHandler,
   createBlockHandler,
+  triggerImageInput,
 }) => {
   if (!element) {
     if (showInsertToolbar) {
@@ -23,10 +23,16 @@ export const EditorToolbar = ({
       <TextToolbar
         inlineStyleHandler={inlineStyleHandler}
         blockStyleHandler={blockStyleHandler}
-        editorState={element.editorState}
+        editorState={element.state.editorState}
       />
     );
-  if (element.type === ContentType.heading) return <TextToolbar />;
-  if (element.type === ContentType.image) return <ImageToolbar />;
+  // if (element.type === ContentType.heading) return <TextToolbar />;
+  if (element.type === ContentType.image)
+    return (
+      <ImageToolbar
+        image={element.state.image}
+        triggerImageInput={triggerImageInput}
+      />
+    );
   if (element.type === ContentType.gallery) return <GalleryToolbar />;
 };

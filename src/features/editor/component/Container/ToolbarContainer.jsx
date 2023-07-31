@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-export const Container = ({ title, titleIcon, children }) => {
+export const ToolbarContainer = ({ title, titleIcon, children }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,13 +15,13 @@ export const Container = ({ title, titleIcon, children }) => {
     px-4  
     lg:mx-20 
     w-full
-    lg:w-3/12   
+    lg:w-1/4
     max-h-[30%] lg:max-h-none
     border shadow-xl shadow-gray-800
     rounded-t-xl lg:rounded-xl
     bg-white
     text-black  
-     scrollbar-light
+     scrollbar-hidden
     ` + (open ? "overflow-auto " : "overflow-hidden ")
       }
     >
@@ -34,8 +34,8 @@ export const Container = ({ title, titleIcon, children }) => {
       >
         <FontAwesomeIcon icon={faChevronDown} />
       </button>
-      <div className="flex items-center gap-4 text-lg font-semibold p-3">
-        <span className="flex items-center text-xl">{titleIcon}</span>
+      <div className="flex items-center gap-4 font-semibold p-3">
+        <span className="flex items-center">{titleIcon}</span>
         <span className="flex items-center">{title}</span>
       </div>
       <div className={open ? "h-full" : "h-0 lg:h-full"}>{children}</div>

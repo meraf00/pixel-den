@@ -7,16 +7,14 @@ const ContentType = {
 };
 
 class Content {
-  constructor(contentType, editorState, image, gallery) {
+  constructor(contentType, state) {
     this.type = contentType;
-
-    if (editorState) this.editorState = editorState;
-    if (image) this.image = image;
-    if (gallery) this.gallery = gallery;
+    this.state = state ?? {};
   }
 
   copy() {
-    return new Content(this.type, this.editorState, this.image, this.gallery);
+    const stateCopy = Object.assign({}, this.state);
+    return new Content(this.type, stateCopy);
   }
 }
 

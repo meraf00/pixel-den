@@ -1,11 +1,7 @@
 import { FontSizeOutlined } from "@ant-design/icons";
 
-import { Container } from "../Container";
-
-const preventDefault = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-};
+import { ToolbarContainer } from "../Container/ToolbarContainer";
+import { preventDefault } from "utils";
 
 export const TextToolbar = ({
   editorState,
@@ -19,10 +15,10 @@ export const TextToolbar = ({
   const currentBlock = editorState.getCurrentContent().getBlockForKey(blockKey);
 
   return (
-    <Container titleIcon={<FontSizeOutlined />} title="Text">
-      <div className="flex flex-col gap-3 my-3 p-3">
+    <ToolbarContainer titleIcon={<FontSizeOutlined />} title="Text">
+      <div className="flex flex-col gap-2 p-3">
         <span>Font style</span>
-        <div className="grid grid-cols-3 text-lg border-4 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-3 border-4 rounded-xl overflow-hidden">
           <button
             onMouseDown={preventDefault}
             onClick={() => inlineStyleHandler("BOLD")}
@@ -56,9 +52,9 @@ export const TextToolbar = ({
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 my-3 p-3">
+      <div className="flex flex-col gap-2 p-3">
         <span>List</span>
-        <div className="grid grid-cols-3 border-4 rounded-2xl overflow-hidden text-sm">
+        <div className="grid grid-cols-3 border-4 rounded-xl overflow-hidden text-sm">
           <button
             onMouseDown={preventDefault}
             onClick={() => blockStyleHandler("unstyled")}
@@ -95,6 +91,6 @@ export const TextToolbar = ({
           </button>
         </div>
       </div>
-    </Container>
+    </ToolbarContainer>
   );
 };
